@@ -1,8 +1,4 @@
-import {
-  observable,
-  action,
-  runInAction
-} from "mobx";
+import { observable, action, runInAction } from "mobx";
 import axios from "axios";
 
 export class RandomBeerStore {
@@ -21,8 +17,6 @@ export class RandomBeerStore {
     response
       .then(data => {
         runInAction(() => {
-          console.log("Response");
-          console.log(this.showModal);
           this.showModal = true;
           this.randomBeer = data.data[0];
         });

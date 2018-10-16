@@ -14,7 +14,6 @@ export class BeerDataStore {
   loadNewBeerData = (loadingIndicatorStore, filterStore, paginationStore) => {
     const beerSearchParameters = filterStore.filterState;
     const { page, per_page } = paginationStore;
-    console.log(page, per_page);
     let requestUrlWithParameters = this.baseUrl;
     const beerSearchParametersLength = Object.keys(beerSearchParameters);
     loadingIndicatorStore.showLoadingIndicator();
@@ -58,25 +57,3 @@ export class BeerDataStore {
       });
   };
 }
-
-// const beerDataReducer = (
-//   state = {
-//     beerData: {}
-//   },
-//   action
-// ) => {
-//   switch (action.type) {
-//     case DATA_WAS_NOT_FOUND:
-//       return {
-//         beerData: {}
-//       };
-//     case LOAD_NEW_BEER_DATA:
-//       return {
-//         beerData: action.response
-//       };
-//     default:
-//       return state;
-//   }
-// };
-
-// export default beerDataReducer;
