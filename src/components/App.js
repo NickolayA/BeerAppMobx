@@ -1,28 +1,32 @@
 import React from "react";
-import { ComponentForFirstStore } from "./ComponentForFirstStore";
-import { ComponentForSecondStore } from "./ComponentForSecondStore";
-import { ComponentForThirdStore } from "./ComponentForThirdStore";
+import { observer, inject } from "mobx-react";
 import { Pagination } from "./Pagination";
 import { Filter } from "./Filter";
+import { RandomBeer } from "./RandomBeer";
+import { ShowCase } from "./ShowCase";
 
-const App = () => (
-  <React.Fragment>
-    <div style={{ float: "left", marginRight: "200px" }}>
-      <ComponentForFirstStore />
-    </div>
-
-    <div style={{ float: "left", marginRight: "200px" }}>
-      <ComponentForSecondStore />
-    </div>
-
-    <div style={{ float: "left" }}>
-      <ComponentForThirdStore />
-    </div>
-    <div>
-      <Pagination />
-      <Filter />
-    </div>
-  </React.Fragment>
-);
-
-export default App;
+@inject("loadingIndicatorStore")
+@observer
+export class App extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <div className="App columns">
+          <div className="column">
+            <Filter />
+          </div>
+          <div className="column">
+            <Pagination />
+            <RandomBeer />
+            {this.props.loadingIndicatorStore.show ? (
+              <p>Loading..</p>
+            ) : (
+              <ShowCase />
+            )}
+            <Pagination />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+}

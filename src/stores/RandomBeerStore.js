@@ -1,5 +1,8 @@
-// import { SHOW_RANDOM_BEER, HIDE_RANDOM_BEER } from "../actions/types";
-import { observable, action, runInAction } from "mobx";
+import {
+  observable,
+  action,
+  runInAction
+} from "mobx";
 import axios from "axios";
 
 export class RandomBeerStore {
@@ -34,27 +37,3 @@ export class RandomBeerStore {
     this.showModal = false;
   };
 }
-
-// const randomBeerReducer = (
-//   state = {
-//     showModal: false,
-//     randomBeer: {}
-//   },
-//   action
-// ) => {
-//   switch (action.type) {
-//     case SHOW_RANDOM_BEER:
-//       return {
-//         showModal: true,
-//         randomBeer: action.randomBeer
-//       };
-//     case HIDE_RANDOM_BEER:
-//       return {
-//         showModal: false
-//       };
-//     default:
-//       return state;
-//   }
-// };
-
-// export default randomBeerReducer;

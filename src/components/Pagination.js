@@ -1,29 +1,50 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 
-// import { LOAD_NEXT_PAGE, LOAD_PREVIOUS_PAGE } from "../actions/types";
-// import { makeApiRequestWithParameters } from "../actions/actions";
-
+@inject(
+  "filterStore",
+  "paginationStore",
+  "beerDataStore",
+  "loadingIndicatorStore"
+)
 @observer
-@inject("paginationStore")
 export class Pagination extends React.Component {
   render() {
-    const store = this.props.paginationStore;
+    const {
+      paginationStore,
+      filterStore,
+      beerDataStore,
+      loadingIndicatorStore
+    } = this.props;
 
     return (
       <React.Fragment>
         <button
-          disabled={store.page === 1}
+          disabled={paginationStore.page === 1}
           className="pagination-previous"
-          onClick={store.loadPreviousPage}
+          onClick={() => {
+            paginationStore.loadPreviousPage();
+            beerDataStore.loadNewBeerData(
+              loadingIndicatorStore,
+              filterStore,
+              paginationStore
+            );
+          }}
         >
           Previous
         </button>
 
         <button
-          disabled={!store.showNextButton}
+          disabled={!paginationStore.showNextButton}
           className="pagination-next"
-          onClick={store.loadNextPage}
+          onClick={() => {
+            paginationStore.loadNextPage();
+            beerDataStore.loadNewBeerData(
+              loadingIndicatorStore,
+              filterStore,
+              paginationStore
+            );
+          }}
         >
           Next
         </button>
@@ -31,28 +52,3 @@ export class Pagination extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {
-//     pageNumber: state.paginationReducer.page,
-//     showNextButton: state.paginationReducer.showNextButton
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loadNextPage: () => {
-//       dispatch({ type: LOAD_NEXT_PAGE });
-//       dispatch(makeApiRequestWithParameters());
-//     },
-//     loadPreviousPage: () => {
-//       dispatch({ type: LOAD_PREVIOUS_PAGE });
-//       dispatch(makeApiRequestWithParameters());
-//     }
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Pagination);

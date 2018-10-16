@@ -1,16 +1,9 @@
-// import { LOAD_NEW_BEER_DATA, DATA_WAS_NOT_FOUND } from "../actions/types";
-
 import { observable, action, runInAction } from "mobx";
 import axios from "axios";
 export class BeerDataStore {
   baseUrl = "https://api.punkapi.com/v2/beers?";
   @observable
   beerData = [];
-
-  // @action
-  // loadNewBeerData = newBeerData => {
-  //   this.beerData = newBeerData;
-  // };
 
   @action
   clearBeerDataStore = () => {
@@ -21,6 +14,7 @@ export class BeerDataStore {
   loadNewBeerData = (loadingIndicatorStore, filterStore, paginationStore) => {
     const beerSearchParameters = filterStore.filterState;
     const { page, per_page } = paginationStore;
+    console.log(page, per_page);
     let requestUrlWithParameters = this.baseUrl;
     const beerSearchParametersLength = Object.keys(beerSearchParameters);
     loadingIndicatorStore.showLoadingIndicator();

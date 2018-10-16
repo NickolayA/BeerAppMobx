@@ -24,6 +24,12 @@ export class PaginationStore {
   loadNextPage = () => {
     this.page++;
   };
+
+  @action
+  printNextButton = yes => {
+    console.log("PrintNextButton");
+    this.showNextButton = yes;
+  };
 }
 
 // import {

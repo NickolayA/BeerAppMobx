@@ -1,10 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
 import BeerCard from "./BeerCard";
+import { observer, inject } from "mobx-react";
 
-class ShowCase extends React.Component {
+@inject("beerDataStore")
+@observer
+export class ShowCase extends React.Component {
   render() {
-    const beerData = this.props.beerData;
+    const beerData = this.props.beerDataStore.beerData;
     return (
       <React.Fragment>
         {Object.keys(beerData).length ? (
@@ -18,11 +20,3 @@ class ShowCase extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    beerData: state.beerDataReducer.beerData
-  };
-};
-
-export default connect(mapStateToProps)(ShowCase);
